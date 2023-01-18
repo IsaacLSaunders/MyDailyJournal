@@ -1,13 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import React, { useState, useEffect, useRef} from 'react'
+import NavHome from './components/nav-bar'
 import './App.css'
 
 
-
 function App() {
-  
+  const [navBarHeight, setNavBarHeight] = useState(0) 
+  const navBarRef = useRef(null)
+
+  useEffect(() => {
+    setNavBarHeight(navBarRef.current.getBoundingClientRect().height)
+  }, [])
+
+  const bodyHeight = {
+    height: `calc(100vh - ${navBarHeight}px)`
+  }
+
   return (
-    <div>Hello Vite Project</div>
+    <>
+    <NavHome ref={navBarRef}></NavHome>
+    <div className='home-page-body' style={bodyHeight}>
+      Discover the beauty of keeping a daily journal. 
+    </div>
+    </>
   )
   
 }
